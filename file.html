@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer & DevOps Resource Hub</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Custom Tailwind configuration for the "Inter" font family and a dynamic theme.
+        // We will define our colors using CSS variables to allow easy switching between themes.
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        // These colors are now placeholders for our CSS variables
+                        'primary-bg': 'var(--primary-bg)',
+                        'secondary-bg': 'var(--secondary-bg)',
+                        'text-primary': 'var(--text-primary)',
+                        'text-secondary': 'var(--text-secondary)',
+                        'button-primary': '#2563eb',
+                        'button-primary-hover': '#1d4ed8',
+                        'link-yellow': 'var(--link-yellow)',
+                        'link-blue': 'var(--link-blue)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Define the light theme using CSS variables */
+        :root {
+            --primary-bg: #f3f4f6;
+            --secondary-bg: #ffffff;
+            --text-primary: #1f2937;
+            --text-secondary: #4b5563;
+            --link-yellow: #d97706;
+            --link-blue: #3b82f6;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1-px rgba(0, 0, 0, 0.06);
+            --border-color: #e5e7eb;
+        }
+
+        /* Define the dark theme colors */
+        .dark-mode {
+            --primary-bg: #0f172a;
+            --secondary-bg: #1e293b;
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --link-yellow: #facc15;
+            --link-blue: #60a5fa;
+            --shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            --border-color: #475569;
+        }
+
+        /* General body styles and font configuration */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            /* We'll let the hover shadow be a bit more intense */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Focus state for search bar */
+        .search-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.5);
+        }
+
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--primary-bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--text-secondary);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--link-blue);
+        }
+        
+        /* Keyframes for the penguin animation */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* Styling for the penguin animation container */
+        .penguin-animation {
+            display: inline-block;
+            font-size: 2rem;
+            margin-right: 1rem;
+            animation: bounce 2s infinite;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="min-h-screen p-8 md:p-12 flex flex-col">
+    <div class="container mx-auto flex-grow">
+        <!-- Header with title, search bar, and new theme toggle -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-text-primary mb-4 flex justify-center items-center">
+                <span class="penguin-animation">🐧</span>
+                Developer & DevOps Resource Hub
+            </h1>
+            <p class="text-lg md:text-xl text-text-secondary">Your one-stop destination for official software, tools, and learning resources.</p>
+            
+            <!-- Theme Toggle Button -->
+            <button id="theme-toggle" class="absolute top-8 right-8 p-3 rounded-full bg-secondary-bg hover:bg-link-blue hover:text-white transition-colors duration-300">
+                <i class="fas fa-sun text-text-primary"></i>
+            </button>
+        </header>
+
+        <!-- Search Bar -->
+        <div class="mb-12 sticky top-0 z-10 bg-primary-bg py-4 rounded-b-xl">
+            <div class="relative w-full md:w-3/4 lg:w-1/2 mx-auto">
+                <input type="text" id="searchInput" placeholder="Search for any tool, language, or topic..."
+                       class="search-input w-full pl-12 pr-4 py-3 bg-secondary-bg rounded-full border border-border-color text-text-primary placeholder-text-secondary transition-all duration-300 focus:border-link-blue">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 absolute left-4 top-1/2 transform -translate-y-1/2 text-text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </div>
+        </div>
+
+        <!-- Main content grid for all resources -->
+        <main id="resourceGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- New Category: Google Apps -->
+            <div id="category-google-apps" class="category-card p-6 bg-secondary-bg rounded-xl shadow-lg col-span-full">
+                <h2 class="text-2xl font-bold mb-4 text-link-yellow">Google Apps</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="card bg-secondary-bg p-4 rounded-lg">
+                        <h3 class="font-semibold text-lg">Google Sheets</h3>
+                        <p class="text-text-secondary text-sm">A spreadsheet program included as part of a free, web-based software office suite.</p>
+                        <a href="https://support.google.com/docs/topic/1382845?hl=en&ref_topic=2811806,2811796,2811797" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                    </div>
+                    <div class="card bg-secondary-bg p-4 rounded-lg">
+                        <h3 class="font-semibold text-lg">Google Ads</h3>
+                        <p class="text-text-secondary text-sm">An online advertising platform developed by Google, where advertisers bid to display brief advertisements, service offerings, product listings, or videos to web users.</p>
+                        <a href="https://support.google.com/google-ads/answer/6320017?hl=en" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                    </div>
+                    <div class="card bg-secondary-bg p-4 rounded-lg">
+                        <h3 class="font-semibold text-lg">Google Play Console</h3>
+                        <p class="text-text-secondary text-sm">The official guide to publishing, managing, and distributing Android applications on the Google Play Store.</p>
+                        <a href="https://support.google.com/googleplay/android-developer/answer/9859152?hl=en" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Docs: Upload an App</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category: AI & Machine Learning -->
+            <div id="category-ai-ml" class="category-card p-6 bg-secondary-bg rounded-xl shadow-lg col-span-full">
+                <h2 class="text-2xl font-bold mb-4 text-link-yellow">AI & Machine Learning</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="card bg-secondary-bg p-4 rounded-lg">
+                        <h3 class="font-semibold text-lg">TensorFlow</h3>
+                        <p class="text-text-secondary text-sm">An open-source library for machine learning, developed by Google.</p>
+                        <a href="https://www.tensorflow.org/api_docs/python/tf" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                    </div>
+                    <div class="card bg-secondary-bg p-4 rounded-lg">
+                        <h3 class="font-semibold text-lg">PyTorch</h3>
+                        <p class="text-text-secondary text-sm">An open-source machine learning framework based on the Torch library.</p>
+                        <a href="https://pytorch.org/docs/" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                    </div>
+                    <div class="card bg-secondary-bg p-4 rounded-lg">
+                        <h3 class="font-semibold text-lg">Scikit-learn</h3>
+                        <p class="text-text-secondary text-sm">A free software machine learning library for the Python programming language.</p>
+                        <a href="https://scikit-learn.org/stable/user_guide.html" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                    </div>
+                    <div class="card bg-secondary-bg p-4 rounded-lg">
+                        <h3 class="font-semibold text-lg">Hugging Face</h3>
+                        <p class="text-text-secondary text-sm">A hub for pre-trained models, datasets, and demos for NLP and other AI tasks.</p>
+                        <a href="https://huggingface.co/docs/transformers/index" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                    </div>
+                    <div class="card bg-secondary-bg p-4 rounded-lg">
+                        <h3 class="font-semibold text-lg">Keras</h3>
+                        <p class="text-text-secondary text-sm">A high-level neural networks API, written in Python and capable of running on top of TensorFlow, CNTK, or Theano.</p>
+                        <a href="https://keras.io/api/" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                    </div>
+                    <div class="card bg-secondary-bg p-4 rounded-lg">
+                        <h3 class="font-semibold text-lg">OpenAI</h3>
+                        <p class="text-text-secondary text-sm">An AI research and deployment company that provides APIs for its powerful models like GPT-4.</p>
+                        <a href="https://platform.openai.com/docs/" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category: Programming Languages, Frameworks & Libraries -->
+            <div id="category-programming" class="category-card p-6 bg-secondary-bg rounded-xl shadow-lg col-span-full">
+                <h2 class="text-2xl font-bold mb-4 text-link-yellow">Programming Languages, Frameworks & Libraries</h2>
+                
+                <!-- Sub-category: Backend Technologies -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold mb-4 text-link-blue">Backend Languages & Frameworks</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">Python</h4>
+                            <p class="text-text-secondary text-sm">Versatile language used for web, data science, and AI.</p>
+                            <a href="https://www.python.org/downloads/" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Download</a>
+                            <a href="https://docs.python.org/3/" target="_blank" class="mt-2 inline-block text-link-blue hover:text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">Django</h4>
+                            <p class="text-text-secondary text-sm">A high-level Python web framework for rapid development.</p>
+                            <a href="https://www.djangoproject.com/download/" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Download</a>
+                            <a href="https://docs.djangoproject.com/en/stable/" target="_blank" class="mt-2 inline-block text-link-blue hover:text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">Flask</h4>
+                            <p class="text-text-secondary text-sm">A lightweight Python web framework.</p>
+                            <a href="https://flask.palletsprojects.com/en/3.0/installation/" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Install</a>
+                            <a href="https://flask.palletsprojects.com/en/3.0/quickstart/" target="_blank" class="mt-2 inline-block text-link-blue hover:text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">Ruby on Rails</h4>
+                            <p class="text-text-secondary text-sm">An opinionated framework for developing web applications in Ruby.</p>
+                            <a href="https://rubyonrails.org/" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Official Site</a>
+                            <a href="https://guides.rubyonrails.org/" target="_blank" class="mt-2 inline-block text-link-blue hover:text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">GoLang</h4>
+                            <p class="text-text-secondary text-sm">A statically typed, compiled language developed at Google.</p>
+                            <a href="https://go.dev/doc/install" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Download</a>
+                            <a href="https://go.dev/doc/" target="_blank" class="mt-2 inline-block text-link-blue hover:text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">Java</h4>
+                            <p class="text-text-secondary text-sm">A robust, object-oriented language for enterprise applications.</p>
+                            <a href="https://www.oracle.com/java/technologies/downloads/" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Download</a>
+                            <a href="https://docs.oracle.com/en-us/iaas/Content/Artificial-Intelligence/home.htm" target="_blank" class="mt-2 inline-block text-link-blue hover:text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">Spring Boot</h4>
+                            <p class="text-text-secondary text-sm">A Java framework for creating stand-alone, production-grade applications.</p>
+                            <a href="https://spring.io/projects/spring-boot" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Official Site</a>
+                            <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/" target="_blank" class="mt-2 inline-block text-link-blue hover:text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">Node.js</h4>
+                            <p class="text-text-secondary text-sm">A JavaScript runtime for server-side development.</p>
+                            <a href="https://nodejs.org/en/download/" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Download</a>
+                            <a href="https://nodejs.org/en/docs" target="_blank" class="mt-2 inline-block text-link-blue hover:text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">Express.js</h4>
+                            <p class="text-text-secondary text-sm">A minimal and flexible Node.js web application framework.</p>
+                            <a href="https://expressjs.com/" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Official Site</a>
+                            <a href="https://expressjs.com/en/starter/installing.html" target="_blank" class="mt-2 inline-block text-link-blue hover:text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">PHP</h4>
+                            <p class="text-text-secondary text-sm">A popular server-side scripting language for web development.</p>
+                            <a href="https://www.php.net/downloads.php" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Download</a>
+                            <a href="https://www.php.net/docs.php" target="_blank" class="mt-2 inline-block text-link-blue hover:text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">C#</h4>
+                            <p class="text-text-secondary text-sm">A modern, object-oriented language from Microsoft for the .NET ecosystem.</p>
+                            <a href="https://dotnet.microsoft.com/download" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Download</a>
+                            <a href="https://learn.microsoft.com/en-us/dotnet/csharp/" target="_blank" class="mt-2 inline-block text-link-blue hover:text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">Rust</h4>
+                            <p class="text-text-secondary text-sm">A language for building reliable and efficient software.</p>
+                            <a href="https://www.rust-lang.org/learn/get-started" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Download</a>
+                            <a href="https://doc.rust-lang.org/book/" target="_blank" class="mt-2 inline-block text-link-blue hover:text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">Elixir</h4>
+                            <p class="text-text-secondary text-sm">A dynamic, functional language for building scalable and maintainable apps.</p>
+                            <a href="https://elixir-lang.org/install.html" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Download</a>
+                            <a href="https://elixir-lang.org/docs.html" target="_blank" class="mt-2 inline-block text-link-blue hover:text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">Erlang</h4>
+                            <p class="text-text-secondary text-sm">A programming language for building highly scalable, soft real-time systems.</p>
+                            <a href="https://www.erlang.org/downloads" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Download</a>
+                            <a href="https://www.erlang.org/doc/" target="_blank" class="mt-2 inline-block text-link-blue hover:text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">C++</h4>
+                            <p class="text-text-secondary text-sm">A powerful language used for high-performance backend systems.</p>
+                            <a href="https://isocpp.org/" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Official Site</a>
+                            <a href="https://en.cppreference.com/w/" target="_blank" class="mt-2 inline-block text-link-blue hover:text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sub-category: Frontend Technologies -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold mb-4 text-link-blue">Frontend Languages & Frameworks</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">HTML5</h4>
+                            <p class="text-text-secondary text-sm">The standard markup language for documents designed to be displayed in a web browser.</p>
+                            <a href="https://html.spec.whatwg.org/multipage/" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Official Site</a>
+                            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" class="mt-2 inline-block text-link-blue hover:text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">CSS3</h4>
+                            <p class="text-text-secondary text-sm">A stylesheet language used for describing the presentation of a document written in a markup language.</p>
+                            <a href="https://www.w3.org/Style/CSS/" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Official Site</a>
+                            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank" class="mt-2 inline-block text-link-blue hover:text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">JavaScript</h4>
+                            <p class="text-text-secondary text-sm">A high-level, interpreted scripting language for web pages.</p>
+                            <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">React</h4>
+                            <p class="text-text-secondary text-sm">A JavaScript library for building user interfaces.</p>
+                            <a href="https://react.dev/" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Official Site</a>
+                            <a href="https://react.dev/learn" target="_blank" class="mt-2 inline-block text-link-blue hover:text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">Angular</h4>
+                            <p class="text-text-secondary text-sm">A platform for building mobile and desktop web applications.</p>
+                            <a href="https://angular.io/guide/setup-local" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Install</a>
+                            <a href="https://angular.io/docs" target="_blank" class="mt-2 inline-block text-link-blue hover:text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">Vue.js</h4>
+                            <p class="text-text-secondary text-sm">A progressive framework for building user interfaces.</p>
+                            <a href="https://vuejs.org/guide/quick-start.html" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Install</a>
+                            <a href="https://vuejs.org/guide/introduction.html" target="_blank" class="mt-2 inline-block text-link-blue hover:text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">Svelte</h4>
+                            <p class="text-text-secondary text-sm">A new approach to building user interfaces, compiling components into small, framework-less vanilla JS.</p>
+                            <a href="https://svelte.dev/docs/introduction" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">jQuery</h4>
+                            <p class="text-text-secondary text-sm">A fast, small, and feature-rich JavaScript library.</p>
+                            <a href="https://jquery.com/download/" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Download</a>
+                            <a href="https://api.jquery.com/" target="_blank" class="mt-2 inline-block text-link-blue hover:text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">TypeScript</h4>
+                            <p class="text-text-secondary text-sm">An open-source language that builds on JavaScript by adding static type definitions.</p>
+                            <a href="https://www.typescriptlang.org/download" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Download</a>
+                            <a href="https://www.typescriptlang.org/docs/" target="_blank" class="mt-2 inline-block text-link-blue hover:text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">Next.js</h4>
+                            <p class="text-text-secondary text-sm">A React framework for building full-stack web applications.</p>
+                            <a href="https://nextjs.org/docs" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">Nuxt</h4>
+                            <p class="text-text-secondary text-sm">An intuitive Vue framework for building web applications.</p>
+                            <a href="https://nuxt.com/docs" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">Gatsby</h4>
+                            <p class="text-text-secondary text-sm">A framework for creating fast, secure, and powerful websites using React.</p>
+                            <a href="https://www.gatsbyjs.com/docs/quick-start/" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">Ember.js</h4>
+                            <p class="text-text-secondary text-sm">A framework for building ambitious web applications.</p>
+                            <a href="https://emberjs.com/learn/" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">Backbone.js</h4>
+                            <p class="text-text-secondary text-sm">A JavaScript library with a MV* structure for web applications.</p>
+                            <a href="http://backbonejs.org/#examples" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">Alpine.js</h4>
+                            <p class="text-text-secondary text-sm">A rugged, minimal framework for composing behavior directly in your markup.</p>
+                            <a href="https://alpinejs.dev/start-here" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">D3.js</h4>
+                            <p class="text-text-secondary text-sm">A JavaScript library for manipulating documents based on data.</p>
+                            <a href="https://d3js.org/" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Official Site</a>
+                            <a href="https://d3js.org/getting-started" target="_blank" class="mt-2 inline-block text-link-blue hover:text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">PWA</h4>
+                            <p class="text-text-secondary text-sm">A modern approach to building web applications that deliver an app-like experience to users.</p>
+                            <a href="https://web.dev/progressive-web-apps/" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">WebAssembly</h4>
+                            <p class="text-text-secondary text-sm">A binary instruction format for a stack-based virtual machine.</p>
+                            <a href="https://webassembly.org/getting-started/web-apis/" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category: DevOps & Automation -->
+            <div id="category-devops" class="category-card p-6 bg-secondary-bg rounded-xl shadow-lg col-span-full">
+                <h2 class="text-2xl font-bold mb-4 text-link-yellow">DevOps & Automation</h2>
+                
+                <!-- Sub-category: CI/CD & Monitoring -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold mb-4 text-link-blue">CI/CD & Monitoring</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">GitLab</h4>
+                            <p class="text-text-secondary text-sm">A single application for the entire DevOps lifecycle, from project planning to security and monitoring.</p>
+                            <a href="https://about.gitlab.com/" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Official Site</a>
+                            <a href="https://docs.gitlab.com/" target="_blank" class="mt-2 inline-block text-link-blue hover:text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">Prometheus</h4>
+                            <p class="text-text-secondary text-sm">An open-source systems monitoring and alerting toolkit with a powerful query language.</p>
+                            <a href="https://prometheus.io/" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Official Site</a>
+                            <a href="https://prometheus.io/docs/introduction/overview/" target="_blank" class="mt-2 inline-block text-link-blue hover:text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">Jenkins</h4>
+                            <p class="text-text-secondary text-sm">An open-source automation server for building, deploying, and automating any project.</p>
+                            <a href="https://www.jenkins.io/download/" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Download</a>
+                            <a href="https://www.jenkins.io/doc/" target="_blank" class="mt-2 inline-block text-link-blue hover:text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sub-category: Configuration & IaC -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4 text-link-blue">Configuration Management & IaC</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">Git</h4>
+                            <p class="text-text-secondary text-sm">Distributed version control system for tracking changes in source code.</p>
+                            <a href="https://git-scm.com/downloads" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Download</a>
+                            <a href="mailto:pksinghbond798352@gmail.com" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Gmail</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">Terraform</h4>
+                            <p class="text-text-secondary text-sm">Infrastructure as Code (IaC) tool for provisioning cloud resources.</p>
+                            <a href="https://www.terraform.io/downloads.html" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Download</a>
+                            <a href="https://www.terraform.io/docs/index.html" target="_blank" class="mt-2 inline-block text-link-blue hover:text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">Ansible</h4>
+                            <p class="text-text-secondary text-sm">An open-source software provisioning, configuration management, and application-deployment tool.</p>
+                            <a href="https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Install Guide</a>
+                            <a href="https://docs.ansible.com/" target="_blank" class="mt-2 inline-block text-link-blue hover:text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category: Cloud & Virtualization -->
+            <div id="category-cloud" class="category-card p-6 bg-secondary-bg rounded-xl shadow-lg col-span-full">
+                <h2 class="text-2xl font-bold mb-4 text-link-yellow">Cloud & Virtualization</h2>
+                
+                <!-- Sub-category: Major Cloud Providers -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold mb-4 text-link-blue">Major Cloud Providers</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">AWS</h4>
+                            <p class="text-text-secondary text-sm">A comprehensive cloud platform with over 200 fully featured services.</p>
+                            <a href="https://aws.amazon.com/console/" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Console</a>
+                            <a href="https://docs.aws.amazon.com/" target="_blank" class="mt-2 inline-block text-link-blue hover:text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">Azure</h4>
+                            <p class="text-text-secondary text-sm">Microsoft's cloud computing platform providing a range of services.</p>
+                            <a href="https://portal.azure.com/" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Portal</a>
+                            <a href="https://docs.microsoft.com/en-us/azure/" target="_blank" class="mt-2 inline-block text-link-blue hover:text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">GCP</h4>
+                            <p class="text-text-secondary text-sm">A suite of cloud computing services that runs on Google's internal infrastructure.</p>
+                            <a href="https://console.cloud.google.com/" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Console</a>
+                            <a href="https://cloud.google.com/docs" target="_blank" class="mt-2 inline-block text-link-blue hover:text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">Alibaba Cloud</h4>
+                            <p class="text-text-secondary text-sm">A leading cloud provider in Asia, offering a full suite of cloud services.</p>
+                            <a href="https://www.alibabacloud.com/help" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">Oracle Cloud Infrastructure (OCI)</h4>
+                            <p class="text-text-secondary text-sm">A set of cloud computing services that runs on Oracle’s network of data centers.</p>
+                            <a href="https://docs.oracle.com/en-us/iaas/Content/home.htm" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">IBM Cloud</h4>
+                            <p class="text-text-secondary text-sm">A set of cloud computing services for business, including Infrastructure as a Service (IaaS), Software as a Service (SaaS), and Platform as a Service (PaaS).</p>
+                            <a href="https://www.ibm.com/cloud/docs" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sub-category: Virtualization & Containers -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4 text-link-blue">Virtualization & Containers</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">Docker</h4>
+                            <p class="text-text-secondary text-sm">A platform for developing, shipping, and running applications in containers.</p>
+                            <a href="https://www.docker.com/products/docker-desktop/" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Download</a>
+                            <a href="https://docs.docker.com/" target="_blank" class="mt-2 inline-block text-link-blue hover:text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">Kubernetes</h4>
+                            <p class="text-text-secondary text-sm">An open-source system for automating deployment, scaling, and management of containerized applications.</p>
+                            <a href="https://kubernetes.io/docs/setup/" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Download</a>
+                            <a href="https://kubernetes.io/docs/home/" target="_blank" class="mt-2 inline-block text-link-blue hover:text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">VMware</h4>
+                            <p class="text-text-secondary text-sm">A leading provider of cloud computing and virtualization software and services.</p>
+                            <a href="https://www.vmware.com/" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Official Site</a>
+                            <a href="https://docs.vmware.com/" target="_blank" class="mt-2 inline-block text-link-blue hover:text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                        <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">KVM (Kernel-based Virtual Machine)</h4>
+                            <p class="text-text-secondary text-sm">A virtualization infrastructure for the Linux kernel that turns it into a hypervisor.</p>
+                            <a href="https://www.linux-kvm.org/page/Main_Page" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Official Site</a>
+                            <a href="https://www.linux-kvm.org/page/Docs" target="_blank" class="mt-2 inline-block text-link-blue hover:text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sub-category for Cloud-specific AI/ML Services -->
+                <div class="mt-8">
+                    <h3 class="text-xl font-bold mb-4 text-link-blue">Cloud AI/ML Services</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                         <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">Google AI Platform</h4>
+                            <p class="text-text-secondary text-sm">A suite of tools for building and deploying ML models on Google Cloud.</p>
+                            <a href="https://cloud.google.com/ai-platform/docs" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                         <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">Azure Machine Learning</h4>
+                            <p class="text-text-secondary text-sm">A cloud-based service for developing, training, and deploying machine learning models.</p>
+                            <a href="https://learn.microsoft.com/en-us/azure/machine-learning/" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                         <div class="card bg-secondary-bg p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg">Oracle Cloud Infrastructure (OCI) AI Services</h4>
+                            <p class="text-text-secondary text-sm">A comprehensive suite of AI services that are pre-trained and ready to use, or can be customized with your data on OCI.</p>
+                            <a href="https://docs.oracle.com/en-us/iaas/Content/Artificial-Intelligence/home.htm" target="_blank" class="mt-2 inline-block bg-button-primary hover:bg-button-primary-hover text-white font-semibold py-2 px-4 rounded-full text-sm">Docs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer with social media links and copyright -->
+    <footer class="mt-12 text-center text-text-secondary">
+        <div class="flex justify-center space-x-6 mb-4">
+            <a href="https://www.linkedin.com/in/pankajpkbond" target="_blank" class="text-2xl hover:text-link-blue transition-colors duration-300">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://medium.com/@pksinghbond798352" target="_blank" class="text-2xl hover:text-link-blue transition-colors duration-300">
+                <i class="fab fa-medium"></i>
+            </a>
+            <a href="mailto:pksinghbond798352@gmail.com" class="text-2xl hover:text-link-blue transition-colors duration-300">
+                <i class="fas fa-envelope"></i>
+            </a>
+        </div>
+        <p class="text-sm">&copy; 2025 pksinghbond - Developer</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const body = document.body;
+            const themeToggle = document.getElementById('theme-toggle');
+
+            // Set initial theme based on local storage or system preference
+            const savedTheme = localStorage.getItem('theme');
+            const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+                body.classList.add('dark-mode');
+                themeToggle.innerHTML = '<i class="fas fa-moon text-white"></i>'; // Changed icon color for dark mode
+            } else {
+                themeToggle.innerHTML = '<i class="fas fa-sun text-text-primary"></i>';
+            }
+            
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                if (body.classList.contains('dark-mode')) {
+                    themeToggle.innerHTML = '<i class="fas fa-moon text-white"></i>';
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    themeToggle.innerHTML = '<i class="fas fa-sun text-text-primary"></i>';
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Search functionality
+            const searchInput = document.getElementById('searchInput');
+            const resourceGrid = document.getElementById('resourceGrid');
+            
+            // Collect all cards, including the new ones
+            const allCards = Array.from(resourceGrid.querySelectorAll('.card'));
+            const allCategories = resourceGrid.querySelectorAll('.category-card');
+
+            // Listen for input events on the search bar
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase().trim();
+
+                // Iterate through all resource cards to check for a match
+                allCards.forEach(card => {
+                    const textContent = card.textContent.toLowerCase();
+                    if (textContent.includes(searchTerm)) {
+                        card.style.display = 'block'; // Show the card if it matches
+                    } else {
+                        card.style.display = 'none'; // Hide the card if no match
+                    }
+                });
+
+                // Check each category to see if it has any visible cards
+                allCategories.forEach(category => {
+                    // Check for cards within this category that are not hidden
+                    const visibleCardsInCat = Array.from(category.querySelectorAll('.card')).filter(card => card.style.display !== 'none');
+                    if (visibleCardsInCat.length > 0) {
+                        category.style.display = 'block'; // Show category if it has visible cards
+                    } else {
+                        category.style.display = 'none'; // Hide category if all its cards are hidden
+                    }
+                });
+            });
+
+        });
+    </script>
+</body>
+</html>
